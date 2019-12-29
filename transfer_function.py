@@ -19,6 +19,11 @@ class TF:
         self.__phase = 0.0
         self.__tf = signal.TransferFunction(self.__num, self.__den)
 
+    def __init__(self, num, den):
+        super().__init__()
+        self.set_num(num)
+        self.set_den(den)
+        self.__tf = signal.TransferFunction(self.__num, self.__den)
 
     def set_num(self, num:list):
         """
@@ -48,7 +53,7 @@ class TF:
 
     def plotPhase(self):
         self.__tf = signal.TransferFunction(self.__num, self.__den)
-        self.__w, self.__mag, self.__phase = self.__tf.bode()
+        self.__w, self.__mag, self.__phase = self.get_values()
         plt.figure()
         plt.title("Phase")
         plt.xlabel("Frequency")
@@ -60,7 +65,7 @@ class TF:
 
     def plotMag(self):
         self.__tf = signal.TransferFunction(self.__num, self.__den)
-        self.__w, self.__mag, self.__phase = self.__tf.bode()
+        self.__w, self.__mag, self.__phase = self.get_values()
         plt.figure()
         plt.title("Magnitute")
         plt.xlabel("Frequency")
@@ -76,5 +81,24 @@ class TF:
         """
         self.__tf = signal.TransferFunction(self.__num, self.__den)
         return self.__tf.bode()
+
+    
+    def plot_bode(self):
+        """
+            Plot bode diagrams
+        """
+        self.__w, self.__mag, self.__phase = self.get_values()
+        fig, (ax1, ax2) = plt.subplots(2, 1,constrained_layout=True)
+        fig.suptitle('Bode plot', fontsize=16)
+
+        ax1.set_xlabel("Frequency")
+        ax1.set_ylabel("Amplitude")
+        ax1.semilogx(self.__w, self.__mag)
+        
+        ax2.set_xlabel("Frequency")
+        ax2.set_ylabel("Phase")
+        ax2.semilogx(self.__w, self.__phase)
+
+        plt.show()
         
         
