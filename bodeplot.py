@@ -51,5 +51,11 @@ if __name__ == "__main__":
 
     # tf.plotMag()
     # tf.plotPhase()
-    tf.plot_bode()
+    # tf.plot_bode()
+
+    tf2 = TF(num=[100.],den=[1.,30.])
+    # tf2.plot_bode()
+
+    tf3 = TF(zeros=[1, 2], poles=[3, 4], gain=5)
+    tf3.plot_bode()
     # bode_plot(num, den)
